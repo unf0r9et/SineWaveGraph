@@ -8,16 +8,12 @@
 #define TIME 50
 
 void ClearScreen(char(&screen)[HEIGHT][WIDTH]) {
-	for (int i = 0; i < HEIGHT; i++)
-	{
-		for (int j = 0; j < WIDTH; j++)
-		{
-			if (j == WIDTH / 2 && i != HEIGHT / 2)
-			{
+	for (int i = 0; i < HEIGHT; i++) {
+		for (int j = 0; j < WIDTH; j++) {
+			if (j == WIDTH / 2 && i != HEIGHT / 2) {
 				screen[i][j] = '|';
 			}
-			else if (i == HEIGHT / 2)
-			{
+			else if (i == HEIGHT / 2) {
 				screen[i][j] = '-';
 			}
 			else screen[i][j] = ' ';
@@ -30,38 +26,25 @@ void FunctionSin(char(&screen)[HEIGHT][WIDTH], int coefficient) {
 	ClearScreen(screen);
 	int x{ 0 };
 	int y{ 0 };
-	double k{ 0 };
-	for (int i = 0; i < HEIGHT; i++)
-	{
-		for (int j = 0; j < WIDTH; j++)
-		{
-
-			k = (4 * PI) / WIDTH;
+	double k = (4 * PI) / WIDTH;
+	for (int i = 0; i < HEIGHT; i++) {
+		for (int j = 0; j < WIDTH; j++) {
 			x = j;
-
 			y = sin(j * k - coefficient) * HEIGHT / 2;
-
-			if (y < 0)
-			{
+			if (y < 0) {
 				y = abs(y) + (HEIGHT / 2 - 1);
 				screen[y][x] = '@';
 			}
-			else
-			{
+			else {
 				y = (-1 * y) + (HEIGHT / 2 - 1);
 				screen[y][x] = '@';
 			}
-
 		}
 	}
-
 }
 void ShowScreen(char(&screen)[HEIGHT][WIDTH]) {
-	for (int i = 0; i < HEIGHT; i++)
-	{
-		for (int j = 0; j < WIDTH; j++)
-		{
-
+	for (int i = 0; i < HEIGHT; i++) {
+		for (int j = 0; j < WIDTH; j++) {
 			std::cout << screen[i][j];
 		}
 		std::cout << std::endl;
@@ -76,19 +59,14 @@ void CursorOff() {
 }
 
 int main() {
-
 	char screen[HEIGHT][WIDTH];
-
 	CursorOff();
-
 	while (1) {
 		for (int coefficient = 0; coefficient <= 2 * PI; coefficient++) {
 			FunctionSin(screen, coefficient);
 			ShowScreen(screen);
 			Sleep(TIME);
 		}
-
 	}
-
 	return 0;
 }
